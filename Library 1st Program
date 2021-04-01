@@ -1,0 +1,84 @@
+import datetime,time
+
+print("Welcome in World International Library")
+
+#Books Data File
+books_file=open("Books_data.txt","r+")
+BD=(books_file.readlines())
+for i in range(len(BD)):
+    element=BD[i].strip("\n")
+    BD[i]=element
+for i in BD:
+    if '' in BD:
+        BD.remove('')
+        
+"""
+position_uniqueCode=7001
+Books_list=[]
+for i in range(len(BD)):
+    Books_list.append(BD[i])
+    Books_list.append(f'WIL{position_uniqueCode}')
+    position_uniqueCode+=1
+print(Books_list)
+
+for i in range(len(Books_list)):
+    books_file.writelines(Books_list[i]+"\n")
+"""
+
+
+
+#Student Data File
+student_data=open("Student_Data.txt","r+")
+SD=(student_data.readlines())
+for i in range(len(SD)):
+    element=SD[i].strip("\n")
+    SD[i]=element
+print(SD)
+
+#Recipt Data File 
+recipt_data=open("recipt_data.txt","r+")
+
+#Teacher Data File
+teacher_data=open("teacher_data.txt","r+")
+ids=(teacher_data.readlines())
+for i in range(len(ids)):
+    element=ids[i].strip("\n")
+    ids[i]=element
+    
+#Main Program Start from Here
+
+user_id=input("Enter Id : ")
+
+if user_id in ids:
+    position_id=ids.index(user_id)
+    print("Welcome",ids[position_id-1])
+    
+    #Options for performing in Daily Library
+    print("Enter 1 for Issue Book ","\n"+"Enter 2 for Return Book ","\n"+"Enter 3 for Check Books ","\n"+"Enter 4 for Book Enquiry Book ","\n"+"Enter 5 for Book Payment ","\n"+"Enter 6 for Today All Books Data ","\n"+"Enter 7 for Last 7 Days Book Data ")
+    
+    #Ask User for option 
+    perform_option=int(input("Enter Option Number : "))
+    
+    if perform_option==1:
+       for i in range(1): 
+        studentUI=input("Enter Student Unique ID : ")
+        if studentUI in SD:
+            position_of_ID=SD.index(studentUI)
+            print("NAME :",SD[position_of_ID-1],"\n"+"Class :",SD[position_of_ID+1],"\n"+"Student Unique ID :",SD[position_of_ID])
+            book_name=input("Enter Book unique Code :")
+            if "WIL"+book_name in BD:
+                position_book=BD.index("WIL"+book_name)
+                print("Book Name :",BD[position_book-1])
+                time=datetime.datetime.now().strftime("%y-%m-%d  %I:%M:%p")
+                recipt_data.writelines(("NAME :",SD[position_of_ID-1],"\n"+"Class :",SD[position_of_ID+1],"\n"+"Student Unique ID :",SD[position_of_ID],"\n"))
+                recipt_data.writelines(("Book Name :",BD[position_book-1],"\n"))
+                recipt_data.writelines("Book Unique Code : "+"WIl"+book_name+"\n")
+                recipt_data.writelines("Date and Time : "+str(time)+"\n")
+                recipt_data.writelines("_"*45)
+            else:
+                print("Student unique ID is Not Valid Try Again....")
+                continue
+
+
+
+
